@@ -1,17 +1,20 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import React, { useState } from 'react'
 
 export default function Home() {
-  const metricNumber = 9898911881;
-  const [link, setLink] = useState({});
+  // const [link, setLink] = useState({});
   const getLink = () => {
-    let url = "http://localhost:5000/link/new/"+metricNumber;
-    fetch(url, {method: 'POST'})
+    let url = "http://localhost:3001/initiateTelebot"
+    fetch(url)
     .then(res => {
         console.log(res)
+        window.open(res.link, '_blank');
+        //checkwhether get the link
         // setLink(res.link);
-    }, []);
+    });
+    //window.open("https://www.google.com", '_blank');
   }
 
   return (
@@ -26,7 +29,6 @@ export default function Home() {
           Welcome to LumiNUS!
         </h1>
 
-       
         <div className={styles.grid} onClick={getLink}>
           <a
             className={styles.card}
