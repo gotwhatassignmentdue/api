@@ -1,26 +1,13 @@
 const express = require("express");
 const app = express();
+const { authUser } = require('./verifyToken');
 const port = 3000
 
 // get list of tasks
-app.get("/", async (req, res) => {
-  req.token
+app.get("/", authUser, async (req, res) => {
   try {
-
-    
-    // const tasks = [
-    //   {
-    //     id: "string",
-    //     targetID: "string",
-    //     targetName: "string",
-    //     taskType: 0,
-    //     typeID: 0,
-    //     createdDate: "string",
-    //     startDate: "string",
-    //     endDate: "string",
-    //     completed: true,
-    //   },
-    // ];
+    console.log(req.userData.tasks);
+    res.status(200).json(req.userData.tasks);
   } catch (err) {
     console.log(err.message);
   }
