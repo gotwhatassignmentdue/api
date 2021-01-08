@@ -3,7 +3,7 @@ const app = express();
 const port = 3000
 
 // get list of tasks
-router.get("/", async (req, res) => {
+app.get("/", async (req, res) => {
   req.token
   try {
 
