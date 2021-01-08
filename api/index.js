@@ -8,8 +8,13 @@ const userID = "123";
 // get list of tasks
 app.get("/task", authUser, async (req, res) => {
   try {
-    console.log(req.userData.tasks);
-    res.status(200).json(req.userData.tasks);
+    data = req.userData.tasks;
+
+    data.sort(function(a,b){
+      return new Date(b.endDate) - new Date(a.endDate);
+    });
+
+    res.status(200).json(data.filter(task => task.completed === true));
   } catch (err) {
     console.log(err.message);
   }
