@@ -6,7 +6,7 @@ const axios = require('axios').default;
 const userID = "123";
 
 // get list of tasks
-app.get("/", authUser, async (req, res) => {
+app.get("/task", authUser, async (req, res) => {
   try {
     console.log(req.userData.tasks);
     res.status(200).json(req.userData.tasks);
@@ -15,9 +15,18 @@ app.get("/", authUser, async (req, res) => {
   }
 })
 
-app.listen(port, () => {
-   console.log(`Example app listening at http://localhost:${port}`)
+// get list of tasks by module code
+app.get("/task/:module", authUser, async (req, res) => {
+  const { module } = req.params;
+  try {
+    const data = req.userData.tasks;
+    res.status(200).json(data.filter(task => task.module === module));
+  } catch (err) {
+    console.log(err.message);
+  }
 })
+
+
 
 // API TO GET USER INFO
 
@@ -35,3 +44,8 @@ app.get("/initiateTelebot/", (req, res) => {
     }
   }
 )
+
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
+})
